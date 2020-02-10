@@ -2,7 +2,7 @@
 MongoDb homework for bootcamp, which lets users view and leave comments on the latest news with a web app that scrapes news from another site using Cheerio.
 
 # Assignment Req
-Run npm init. When that's finished, install and save these npm packages:
+npm packages:
 express
 express-handlebars
 mongoose
