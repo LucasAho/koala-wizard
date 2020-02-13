@@ -9,13 +9,18 @@ const axios = require('axios');
 
 var PORT = 3000;
 
+//Initialize Express
+const app = express();
+
 //Handlebars package and initiation
-const exhb = require('express-handlebars');
+const exphbs = require('express-handlebars');
+
+app.engine("handlebars", exphbs({ defaultLayout: "main"}));
+app.set("view engine", "handlebars");
 
 var db = require("./models");
 
-//Initialize Express
-const app = express();
+
 
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +30,10 @@ app.use(express.static("public"));
 
 //Connecting to mongo database
 mongoose.connect("mongodb://localhost/newsPopulater", { useNewUrlParser: true});
+
+// Routes
+require("./routes/escrapeRoute")(app);
+
 
 // Start the server
 app.listen(PORT, function() {
