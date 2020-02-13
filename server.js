@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 //Scraping packages
-const cheerio = require('cheerio');
+
 const axios = require('axios');
 
 var PORT = 3000;
@@ -33,6 +33,7 @@ mongoose.connect("mongodb://localhost/newsPopulater", { useNewUrlParser: true});
 
 // Routes
 require("./routes/escrapeRoute")(app);
+require("./routes/htmlRoutes")(app);
 
 
 // Start the server
