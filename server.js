@@ -5,8 +5,7 @@ const mongoose = require('mongoose');
 const cheerio = require('cheerio');
 const axios = require("axios");
 
-
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 //Initialize Express
 const app = express();
