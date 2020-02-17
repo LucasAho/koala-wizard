@@ -24,8 +24,10 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+
 mongoose
-.connect("mongodb://localhost/mongoHeadlines", {
+.connect(MONGODB_URI, {
 useUnifiedTopology: true,
 useNewUrlParser: true,
 })
@@ -36,7 +38,7 @@ console.log(err);
 
 
 // Routes
-app.get("/scrape", (req, res) => {
+app.post("/scrape", (req, res) => {
         
     axios.get("https://www.pbs.org/newshour/politics/").then(response => {
         var $ = cheerio.load(response.data);
@@ -59,20 +61,13 @@ app.get("/scrape", (req, res) => {
                 
             }
         });
-        console.log(articles);
         db.Article.create(articles, (error, saved) => {
             if (error) {
                 console.log(error);
             } else {
                 res.send(saved);
             }
-        })
-        .then(dbArticle => {
-            res.render("index", {
-                articles: dbArticle
-            });
-        })
-        .catch(err => {console.log(dbArticle);});
+        });
          // Send a message to the client
         console.log("Scrape Complete");
 
@@ -81,9 +76,9 @@ app.get("/scrape", (req, res) => {
    
 });
 
-app.get("/", function (req, res) {
+app.get("/", (req,res) => {
     db.Article.find({},() => {})
-    .then(dbArticle => {
+    .then(dbArticle => {//working to here
         res.render("index", {
             articles: dbArticle
         });
@@ -91,7 +86,7 @@ app.get("/", function (req, res) {
     .catch(err => {
         res.json(err);
     });
-});
+})
 app.get("/saved", function (req, res) {
     res.render("saved", {
     });

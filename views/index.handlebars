@@ -12,9 +12,12 @@
   <p>New York Times Mongo Scraper</p>
 </div>
 <div class="container-fluid article-container">
+  <ul>
   {{#each articles}} 
-    <div class="col-6">{{articles}}</div>
+    <li>{{this}}</li>
   {{/each}}
+  </ul>
+  
 </div>
 <footer class="footer">
     <div class="container">
