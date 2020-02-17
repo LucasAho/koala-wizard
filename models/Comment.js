@@ -2,26 +2,15 @@ const mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
-var CommentSchema = new Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    desc: {
-        type: String,
-        required: true
-    },
-    URL:{
-        type: String,
-        required: true
-    },
-    parentArt: {
+var commentSchema = new Schema({
+    _articleId:{
         type: Schema.Types.ObjectId,
         ref: "Article"
-      }
-    
+    },
+    date: String,
+    noteText: String
 });
 
-var Comment = mongoose.model("Comment", CommentSchema);
+var Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Comment;
